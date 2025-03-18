@@ -6,8 +6,14 @@
 
 [config]
 # models
-model="o3-mini"
-fallback_models=["gpt-4o-2024-11-20"]
+#model="o3-mini"
+model = "ollama/llama3.3"
+fallback_models=["ollama/llama3.3"]
+#model = "ollama/codellama"
+#fallback_models=["ollama/mistral"]
+#model = "qwen2.5-coder:32b"
+#fallback_models=["ollama/qwen2.5-coder:32b"]
+
 #model_weak="gpt-4o-mini-2024-07-18" # optional, a weaker model to use for some easier tasks
 # CLI
 git_provider="github"
@@ -29,7 +35,7 @@ response_language="en-US" # Language locales code for PR responses in ISO 3166 a
 max_description_tokens = 500
 max_commits_tokens = 500
 max_model_tokens = 32000 # Limits the maximum number of tokens that can be used by any model, regardless of the model's default capabilities.
-custom_model_max_tokens=-1 # for models not in the default list
+custom_model_max_tokens=131072 # for models not in the default list
 # patch extension logic
 patch_extension_skip_types =[".md",".txt"]
 allow_dynamic_context=true
@@ -72,7 +78,7 @@ require_score_review=false
 require_tests_review=true
 require_estimate_effort_to_review=true
 require_can_be_split_review=false
-require_security_review=true
+require_security_review=false
 require_ticket_analysis_review=true
 # general options
 persistent_comment=true
@@ -221,6 +227,7 @@ publish_inline_comments_fallback_with_verification = true
 try_fix_invalid_inline_comments = true
 app_name = "pr-agent"
 ignore_bot_pr = true
+#user_token="xxx"
 
 [github_action_config]
 # auto_review = true    # set as env var in .github/workflows/pr-agent.yaml
@@ -296,6 +303,9 @@ pr_commands = [
     "/review",
     "/improve --pr_code_suggestions.commitable_code_suggestions=true",
 ]
+
+[ollama]
+api_base = "http://10.228.152.43:11434" # or whatever port you're running Ollama on
 
 [litellm]
 # use_client = false

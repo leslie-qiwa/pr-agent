@@ -319,6 +319,11 @@ class LiteLLMAIHandler(BaseAiHandler):
                 get_logger().info(f"\nSystem prompt:\n{system}")
                 get_logger().info(f"\nUser prompt:\n{user}")
 
+
+            print("Request Headers and Body in request:")
+            print(json.dumps(kwargs, indent=2))
+            print("Request Headers and Body in beautify format:")
+            print(json.dumps(kwargs, indent=2).replace(r'\n', '\n'))
             response = await acompletion(**kwargs)
         except (openai.APIError, openai.APITimeoutError) as e:
             get_logger().warning(f"Error during LLM inference: {e}")
